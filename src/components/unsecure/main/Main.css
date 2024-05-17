@@ -1,0 +1,28 @@
+.main-page-logo{
+    height: auto;
+    width: auto;
+}
+
+#welcome {
+    font-size: 2rem;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    color: #616bfb;
+  }
+  
+  #company {
+    margin-top: 3%;
+    margin-bottom: 3%;
+    font-family: cursive;
+    font-size: medium;
+    font-weight: bold;
+    color: gray;
+  }
+  
+  .command{
+    color: #000;
+  }
+  
+  .btn-custom{
+    width: 20%;
+  }
