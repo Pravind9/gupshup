@@ -1,6 +1,7 @@
 .main-page-logo{
     height: auto;
     width: auto;
+    border-radius: 50%;
 }
 
 #welcome {
