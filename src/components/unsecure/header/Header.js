@@ -10,7 +10,7 @@ function Header(props) {
     return (
         <nav id="header" className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/home">
+                <Link className="navbar-brand" to="home">
                     <img src={logo} alt="Logo" className="App-logo border-radius-50" />
                     <span className="header-title">Chatroom</span>
                 </Link>
@@ -25,9 +25,9 @@ function Header(props) {
                 </button>
                 <div className="collapse navbar-collapse menu-align" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        <Link className="nav-link active" aria-current="page" to="/home">Home</Link>
-                        <Link className="nav-link" to="/login">Login</Link>
-                        <Link className="nav-link" to="/registration">Sign-up</Link>
+                        <Link className="nav-link active" aria-current="page" to="home">Home</Link>
+                        <Link className="nav-link" to="login">Login</Link>
+                        <Link className="nav-link" to="registration">Sign-up</Link>
                     </div>
                 </div>
             </div>

@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Dashboard.css"
 
 
-const Dashboard = (props) => {
-
+function Dashboard(props) {
     return (
         <div className="dashboard">
             <strong>Dashboard</strong>

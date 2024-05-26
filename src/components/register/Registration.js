@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import "./Registration.css";
-import Constant from "../../common/Constant";
 
-
+import Constant from "../common/Constant";
 
 const Registration = (props) => {
 
     const [data, setData,] = useState({});
     const [msg, setMsg] = useState();
-    const [pass, setPass] = useState();
 
 
     const registerUser = async (event) => {
@@ -161,6 +159,7 @@ const Registration = (props) => {
         </section>
     );
 }
+
 
 
 export default Registration;

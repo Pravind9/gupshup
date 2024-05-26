@@ -7,7 +7,7 @@ function Footer(props) {
     return (
         <footer id="unsec-footer" className="flex-shrink-0 bg-dark text-white-50">
             <div className="container text-center">
-                <small>Copyright &copy; Zyra It System - All Rights Reserved</small>
+                <small>Copyright &copy; All Rights Reserved</small>
             </div>
         </footer>
     );

@@ -1,19 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Constant from "./../../common/Constant"
 
-import logo from "./../../../images/logo/logo.png";
+import logo from "../../images/logo/logo.png";
+import profile from "../../images/logo/profile.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Header.css";
+import Constant from "../common/Constant";
+import { useLocalStorage } from "../common/useLocalStorage";
 
 function Header(props) {
 
+    const[loggedIn, setLoggedIn] = useLocalStorage("loggedIn", false);
+    const[person, setPerson] = useLocalStorage("person", "");
+
+    console.log("Header::LoggedIn ", loggedIn, " Header::person ", person);
+
+
     const navigate = useNavigate();
+
 
     const logout = async (event) => {
         event.preventDefault();
 
         const uri = Constant.getBackendLogoutUri();
+        console.log("logout uri ", uri, JSON.stringify(person));
+
 
 
         const data = {
@@ -30,7 +41,8 @@ function Header(props) {
             .then((res) => res.json())
             .then((response) => {
                 if (response && response.status) {
-                    localStorage.clear();
+                    localStorage.setItem("authenticated", false);
+                    localStorage.setItem("person", null);
                     navigate("/");
                 }
             }).catch((error) => {
@@ -57,7 +69,7 @@ function Header(props) {
                 <div className="collapse navbar-collapse menu-align" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         <Link className="nav-link active" aria-current="page" to="/home">Home</Link>
-                        <Link className="nav-link" onClick={logout}>Logout</Link>
+                        <Link className="nav-link" to="/login">Login</Link>
                         <Link className="nav-link" to="/registration">Sign-up</Link>
                     </div>
                 </div>

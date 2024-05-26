@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../images/logo/logo.png";
+import logo from "../../images/logo/logo.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Main.css";
 
@@ -21,7 +21,7 @@ function Main(props) {
 
                 <div className="command">
                     <button className='btn btn-secondary btn-custom'>
-                        <Link className="nav-link" to="/unsec/login">Get Started</Link>
+                        <Link className="nav-link" to="/login">Get Started</Link>
                     </button>
                 </div>
             </div>
