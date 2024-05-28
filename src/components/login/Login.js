@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../images/logo/logo.png";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import Constant from "../common/Constant";
-import { useLocalStorage } from "../common/useLocalStorage";
 
 import "./Login.css";
 
 const Login = (props) => {
-    const [data, setData] = useState({"status": true});
+    const [data, setData] = useState({ "status": true });
     const [msg, setMsg] = useState();
+    const [logIn, setLogIn] = useState(false);
 
-    const navigate = useNavigate();
 
     const formSubmit = async (event) => {
         event.preventDefault();
@@ -18,7 +18,7 @@ const Login = (props) => {
         try {
             let uri = Constant.getBackendLoginUri();
 
-            const resp = await fetch(uri, {
+            await fetch(uri, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -30,11 +30,12 @@ const Login = (props) => {
                         console.log("Login::response ", response);
                         localStorage.setItem("loggedIn", true);
                         localStorage.setItem("person", JSON.stringify(response.record));
-                        navigate("/");
+                        setLogIn(true);
                     } else {
                         console.log("Hold to login Page!", response);
                         localStorage.clear();
                         setMsg("Credentials not correct for user.");
+                        setLogIn(false);
                     }
                 });
         } catch (exception) {
@@ -42,6 +43,14 @@ const Login = (props) => {
             throw new Error("Internal Server error");
         }
     }
+
+    useEffect(() => {
+        if(logIn){
+            const replace = Constant.getFrontEndContextPath();
+            window.location.replace(replace);
+        }
+    }, [logIn])
+
 
     return (
 
@@ -52,7 +61,7 @@ const Login = (props) => {
             <div className="text-center mt-4 name">
                 Login
             </div>
-            <form className="p-3 mt-3" method="post" onSubmit={formSubmit}>
+            <form className="p-3 mt-3" method="post" onSubmit={formSubmit} >
                 <div className="form-field d-flex align-items-center">
                     <span className="fas fa-user"></span>
                     <input type="text" name="uid" id="userId" placeholder="Username" required={true}
@@ -69,7 +78,7 @@ const Login = (props) => {
                     (<p></p>)
                 }
             </form>
-            
+
             <div className="text-center fs-6">
                 <Link to="/forget">Forget password?</Link> or <Link to="/registration">Sign up</Link>
             </div>

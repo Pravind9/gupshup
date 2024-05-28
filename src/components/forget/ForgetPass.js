@@ -16,7 +16,7 @@ const ForgetPass = (props) => {
                     <span className="fas fa-envelope"></span>
                     <input type="email" name="email" id="email" placeholder="Type email" />
                 </div>
-                <a href="#" data-mdb-ripple-init className="btn btn-primary w-100">Reset password</a>
+                <Link href="/forget" data-mdb-ripple-init className="btn btn-primary w-100">Reset password</Link>
                 <div className="d-flex justify-content-between mt-4">
                     <Link className="nav-link" to="/login">Login</Link>
                     <Link className="nav-link" to="/registration">Register</Link>

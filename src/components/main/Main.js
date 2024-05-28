@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import logo from "../../images/logo/logo.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Main.css";
+import Constant from "../common/Constant";
 
 
 function Main(props) {
+    const basePath = Constant.getFrontEndContextPath();
     return (
         <div className="App">
             <div id="container">
@@ -21,7 +23,7 @@ function Main(props) {
 
                 <div className="command">
                     <button className='btn btn-secondary btn-custom'>
-                        <Link className="nav-link" to="/login">Get Started</Link>
+                        <Link className="nav-link" to={basePath + "/login"}>Get Started</Link>
                     </button>
                 </div>
             </div>

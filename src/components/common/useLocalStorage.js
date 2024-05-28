@@ -5,6 +5,7 @@ function getStorageValue(key, defaultValue) {
     // getting stored value
     const saved = localStorage.getItem(key);
     const initial = JSON.parse(saved);
+    console.log("Hook :: " + initial);
     return initial || defaultValue;
 }
 
@@ -17,5 +18,5 @@ export const useLocalStorage = (key, defaultValue) => {
         localStorage.setItem(key, JSON.stringify(value));
     }, [key, value]);
 
-    return [value, setValue];
-};
+    return [value, setValue]
+}

@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import logo from "../../images/logo/logo.png";
 import profile from "../../images/logo/profile.png";
@@ -10,26 +10,21 @@ import { useLocalStorage } from "../common/useLocalStorage";
 
 function Header(props) {
 
-    const[loggedIn, setLoggedIn] = useLocalStorage("loggedIn", false);
-    const[person, setPerson] = useLocalStorage("person", "");
+    const [loggedIn] = useLocalStorage("loggedIn", false);
+    const [person] = useLocalStorage("person", "");
+    const [logIn, setLogIn] = useState(true);
 
-    console.log("Header::LoggedIn ", loggedIn, " Header::person ", person);
-
-
-    const navigate = useNavigate();
+    console.log("Header::LoggedIn ", loggedIn, " Header::person ", JSON.stringify(person));
 
 
     const logout = async (event) => {
         event.preventDefault();
 
         const uri = Constant.getBackendLogoutUri();
-        console.log("logout uri ", uri, JSON.stringify(person));
-
-
 
         const data = {
             "status": false,
-            "uid": "pravind.9@gmail.com"
+            "uid": person[0].uid
         };
         await fetch(uri, {
             method: "PUT",
@@ -41,22 +36,32 @@ function Header(props) {
             .then((res) => res.json())
             .then((response) => {
                 if (response && response.status) {
-                    localStorage.setItem("authenticated", false);
-                    localStorage.setItem("person", null);
-                    navigate("/");
+                    localStorage.clear();
+                    setLogIn(false);
                 }
             }).catch((error) => {
                 console.log("There is an exception during logout", error);
             });
     }
 
+    useEffect(() => {
+        if (!logIn) {
+            const replace = Constant.getFrontEndContextPath();
+            window.location.replace(replace);
+        }
+    }, [logIn])
+
     return (
         <nav id="header" className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/home">
-                    <img src={logo} alt="Logo" className="App-logo border-radius-50" />
-                    <span className="header-title">Chatroom</span>
-                </Link>
+                {loggedIn ? (
+                    <Link className="navbar-brand" to="/chatroom">
+                        <img src={profile} alt="Profile" className="App-logo border-radius-50" />
+                        <span className="header-title">{person[0].dname}</span>
+                    </Link>) : (<Link className="navbar-brand" to="/home">
+                        <img src={logo} alt="Logo" className="App-logo border-radius-50" />
+                        <span className="header-title">ChatApp</span>
+                    </Link>)}
                 <button className="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -68,9 +73,15 @@ function Header(props) {
                 </button>
                 <div className="collapse navbar-collapse menu-align" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        <Link className="nav-link active" aria-current="page" to="/home">Home</Link>
-                        <Link className="nav-link" to="/login">Login</Link>
-                        <Link className="nav-link" to="/registration">Sign-up</Link>
+                        {loggedIn ? (<>
+                            <Link className="nav-link active" aria-current="page" to="chatroom">Chat</Link>
+                            <Link className="nav-link active" aria-current="page" to="profile">Profile</Link>
+                            <Link className="nav-link" onClick={logout}>Logout</Link>
+                        </>) : (<>
+                            <Link className="nav-link active" aria-current="page" to="home">Home</Link>
+                            <Link className="nav-link" to="login">Login</Link>
+                            <Link className="nav-link" to="registration">Sign-up</Link>
+                        </>)}
                     </div>
                 </div>
             </div>

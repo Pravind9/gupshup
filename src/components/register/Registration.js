@@ -18,7 +18,7 @@ const Registration = (props) => {
                 return;
             } 
 
-            const res = await fetch(uri, {
+            await fetch(uri, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

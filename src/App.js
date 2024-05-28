@@ -1,32 +1,43 @@
-import React, { useState } from 'react';
-import './App.css';
-import Layout from './components/layout/Layout';
-import UnsecLayout from './components/unsecure/layout/UnsecLayout';
-import SecureLayout from './components/secure/layout/SecureLayout';
+import React from 'react';
+import { Routes, Route } from 'react-router';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
+import Main from './components/main/Main';
+import Login from './components/login/Login';
+import Registration from './components/register/Registration';
+import ForgetPass from "./components/forget/ForgetPass";
+import Chatroom from "./components/chatbox/Chatroom";
+import { useLocalStorage } from './components/common/useLocalStorage';
 
+import "bootstrap"
+import './App.css';
 
 function App() {
 
-  const [person, setPerson] = useState(() => {
-    const localPerson = localStorage.getItem("person");
-    const storedPerson = JSON.parse(localPerson);
-    return storedPerson || "";
-  });
-
-  const [loggedIn, setLoggedIn] = useState(() => {
-    const isLoggedIn = localStorage.getItem("loggedIn");
-    return isLoggedIn || false;
-  });
-
-  console.log("APP::LoggedIn ", loggedIn, "APP::person ", person);
-
+  const [loggedIn] = useLocalStorage("loggedIn", false);
 
   return (
-   // <>
-    //  {loggedIn ? <SecureLayout /> : <UnsecLayout />}
-   // </>
-     <Layout />
+    <div id="appContainer" className="d-flex flex-column min-vh-100">
+      <Header title="Chatroom" subtitle="Lets connect" />
+      <Routes path="/chat">
+        {loggedIn ? (
+          <Route path="*" element={<Chatroom />} />
+        ) : (
+          <Route path="*" element={<Main />} />
+        )}
+
+        <Route path="home" element={<Main />} />
+        <Route path="chatroom" element={<Chatroom />} />
+        <Route path="login" element={<Login />} />
+        <Route path="registration" element={<Registration />} />
+        <Route path="profile" element={<Registration />} />
+        <Route path="forget" element={<ForgetPass />} />
+      </Routes>
+      <Footer note="Footer note" />
+    </div>
   );
+
+
 }
 
 export default App;
