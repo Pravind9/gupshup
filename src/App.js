@@ -6,7 +6,7 @@ import Main from './components/main/Main';
 import Login from './components/login/Login';
 import Registration from './components/register/Registration';
 import ForgetPass from "./components/forget/ForgetPass";
-import Chatroom from "./components/chatbox/Chatroom";
+import ChatBox from "./components/chatbox/ChatBox";
 import { useLocalStorage } from './components/common/useLocalStorage';
 
 import "bootstrap"
@@ -21,13 +21,13 @@ function App() {
       <Header title="Chatroom" subtitle="Lets connect" />
       <Routes path="/chat">
         {loggedIn ? (
-          <Route path="*" element={<Chatroom />} />
+          <Route path="*" element={<ChatBox />} />
         ) : (
           <Route path="*" element={<Main />} />
         )}
 
         <Route path="home" element={<Main />} />
-        <Route path="chatroom" element={<Chatroom />} />
+        <Route path="chatroom" element={<ChatBox />} />
         <Route path="login" element={<Login />} />
         <Route path="registration" element={<Registration />} />
         <Route path="profile" element={<Registration />} />
