@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import logo from "../../images/logo/logo.png";
 import profile from "../../images/logo/profile.png";
+import fprofile from "../../images/logo/fprofile.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Header.css";
 import Constant from "../common/Constant";
@@ -29,7 +30,8 @@ function Header(props) {
         await fetch(uri, {
             method: "PUT",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify(data)
         })
@@ -46,8 +48,7 @@ function Header(props) {
 
     useEffect(() => {
         if (!logIn) {
-            const replace = Constant.getFrontEndContextPath();
-            window.location.replace(replace);
+            window.location.replace("home");
         }
     }, [logIn])
 
@@ -55,12 +56,12 @@ function Header(props) {
         <nav id="header" className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
                 {loggedIn ? (
-                    <Link className="navbar-brand" to="/chatroom">
-                        <img src={profile} alt="Profile" className="App-logo border-radius-50" />
+                    <Link className="navbar-brand header-50" to="/chatroom">
+                        <img src={fprofile} alt="Profile" className="App-logo border-radius-50 logo-sizing" />
                         <span className="header-title">{person[0].dname}</span>
-                    </Link>) : (<Link className="navbar-brand" to="/home">
-                        <img src={logo} alt="Logo" className="App-logo border-radius-50" />
-                        <span className="header-title">ChatApp</span>
+                    </Link>) : (<Link className="navbar-brand header-50" to="/home">
+                        <img src={logo} alt="Logo" className="App-logo border-radius-50 logo-sizing" />
+                        <span className="header-title">GupShup</span>
                     </Link>)}
                 <button className="navbar-toggler"
                     type="button"

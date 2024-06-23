@@ -21,7 +21,8 @@ const Login = (props) => {
             await fetch(uri, {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
                 },
                 body: JSON.stringify(data)
             }).then((response) => response.json())
@@ -46,8 +47,7 @@ const Login = (props) => {
 
     useEffect(() => {
         if(logIn){
-            const replace = Constant.getFrontEndContextPath();
-            window.location.replace(replace);
+            window.location.replace("chatroom");
         }
     }, [logIn])
 

@@ -17,11 +17,12 @@ const Registration = (props) => {
             if (!validatePassword(event)) {
                 return;
             } 
-
+            console.log("data = ", JSON.stringify(data));
             await fetch(uri, {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
                 },
                 body: JSON.stringify(data)
             }).then((res) => res.json())
